@@ -39,3 +39,28 @@ from Products
 left join OrderDetails od on od.product_id = products.product_id
 where od.order_id is null
 ;
+
+-- case study 5: total revenue
+select
+sum(quantity*unit_price)
+from orderDetails;
+
+-- case study 6: average price products
+with cte_avg_price as (
+	select category, avg(price) ratarata
+    from products
+    group by category
+    )
+select * from cte_avg_price where ratarata > 500
+;
+
+-- case study 7: pelanggan order lebih dr 1000
+select *
+from customers
+where
+customer_id in (
+	select customer_id
+    from orders
+    where total_amount > 1000
+    )
+    ;
